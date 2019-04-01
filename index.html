@@ -3,16 +3,36 @@
 
 <body>
     
- <canvas id="myCanvas" width="300" height="150" style="border:1px solid #000000;">
+ <canvas id="myCanvas" width="300" height="150" style="border:1px solid white;">
 </canvas>  
 
 <script>
     var c = document.getElementById("myCanvas");
     var ctx = c.getContext("2d");
+    
+    var x =100;
+    var geo = {x:100, y:75, r:10, color:"red"};
+    
     function draw() {
+        ctx.clearRect(0,0,c.width, c.height);
+        
+        //draw object
         ctx.beginPath();
-        ctx.arc(100, 75, 50, 0, 2 * Math.PI);
-        ctx.stroke(); 
+        ctx.arc(geo.x, geo.y, geo.r, 0, 2 * Math.PI);
+        
+        ctx.fillStyle = geo.color;
+        ctx.fill();
+        //ctx.stroke(); 
+        
+        geo.x+=1;
+        
+        //update data
+        if (geo.x-geo.r > c.width) {
+            geo.x = 0-geo.r;
+        }
+        
+        //next frame
+        window.requestAnimationFrame(draw);
     }
     
     window.requestAnimationFrame(draw);
