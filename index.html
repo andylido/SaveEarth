@@ -11,24 +11,30 @@
     var ctx = c.getContext("2d");
     
     var x =100;
-    var geo = {x:100, y:75, r:10, color:"red"};
+    var geo = {x:100, y:75, r:10, color:"red", speed:2};
+    var geo2 = {x:100, y:75, r:50, color:"yellow"};
+    var garray = [geo,geo2];
     
     function draw() {
         ctx.clearRect(0,0,c.width, c.height);
         
         //draw object
-        ctx.beginPath();
-        ctx.arc(geo.x, geo.y, geo.r, 0, 2 * Math.PI);
-        
-        ctx.fillStyle = geo.color;
-        ctx.fill();
-        //ctx.stroke(); 
-        
-        geo.x+=1;
-        
-        //update data
-        if (geo.x-geo.r > c.width) {
-            geo.x = 0-geo.r;
+        for (indx in garray) {
+            geo = garray[indx];
+            
+            ctx.beginPath();
+            ctx.arc(geo.x, geo.y, geo.r, 0, 2 * Math.PI);
+
+            ctx.fillStyle = geo.color;
+            ctx.fill();
+            //ctx.stroke(); 
+            geo.x+=geo.speed;
+
+            //update data
+            if (geo.x-geo.r > c.width) {
+                geo.x = 0-geo.r;
+                geo.y=Math.random()*(c.height - 0) + 0;
+            }  
         }
         
         //next frame
