@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html>
-
+<head>
+    <style>
+        #myCanvas{
+        padding: 0;
+        margin: auto;
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        }
+    </style>
+</head>
 <body>
     
- <canvas id="myCanvas" width="300" height="150" style="border:1px solid white;">
+ <canvas id="myCanvas" width="1200" height="600" style="border:1px solid black;">
 </canvas>  
 
 <script>
     var c = document.getElementById("myCanvas");
     var ctx = c.getContext("2d");
     
-    var x =100;
     var geo = {x:100, y:75, r:10, color:"red", speed:2};
     var geo2 = {x:100, y:75, r:50, color:"yellow"};
     var garray = [geo,geo2];
