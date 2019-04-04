@@ -7,7 +7,7 @@
             margin: auto;
             display: block;
             position: absolute;
-            top: 0;
+            top: 50px;
             bottom: 0;
             left: 0;
             right: 0;
@@ -20,14 +20,21 @@
         }
         h1{
             color: red;
-            text-align: center;
-            font: "Arial";
+            margin-top: 2px;;
+            margin: auto;
+            font: Arial;
+        }
+        h2{
+            text-indent: 1em;
+            color: whitesmoke;
+            font: Arial;
         }
     </style>
     <title>IT202 - Project 3</title>
 </head>
     <body>
         <h1>The Floor is Lava</h1>
+        <h2>Directions: USE W,A,S,D key to survive for your life.</h2><br>
 
         <canvas id="myCanvas" width="1200" height="600" style="border:1px solid white;">
         </canvas>  
@@ -91,6 +98,7 @@
                                 alert("GET WREKT!\n You got a HIGH SCORE of: "+seconds);
                                 document.location.reload();
                                 clearInterval(interval);
+                                
                                 //seconds-=1;
                             }
                         }
@@ -138,7 +146,6 @@
                 //ctx.stroke(); 
                 window.requestAnimationFrame(draw);        
             }
-            window.requestAnimationFrame(draw);
             
             //Prints score to canvas
             function drawScore() {
@@ -185,6 +192,7 @@
                         break;
                     }
             }
+            window.requestAnimationFrame(draw);
         </script>
     </body>
 
