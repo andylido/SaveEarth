@@ -18,89 +18,138 @@
             background-image: url("rain_blur.jpg");
             background-size: cover;
         }
+        h1{
+            color: red;
+            text-align: center;
+            font: "Arial";
+        }
     </style>
     <title>IT202 - Project 3</title>
 </head>
-<body>
+    <body>
+        <h1>The Floor is Lava</h1>
 
-    
- <canvas id="myCanvas" width="1200" height="600" style="border:1px solid white;">
-</canvas>  
+        <canvas id="myCanvas" width="1200" height="600" style="border:1px solid white;">
+        </canvas>  
 
-<script>
-    var c = document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
-    
-    var geo = {x:80, y:45, r:10, color:"red", speed:16};
-    var geo2 = {x:100, y:75, r:20, color:"red", speed:8};
-    var geo3 = {x:120, y:105, r:40, color:"red", speed:4};
-    var geo4 = {x:140, y:135, r:80, color:"red", speed:2};
-    var geo5 = {x:160, y:165, r:160, color:"red", speed:1};
-    var player = {x:300, y:15, r:10, color:"blue", speed:2};
-    var garray = [geo,geo2,geo3,geo4,geo5];
-    
-    function draw() {
-        ctx.clearRect(0,0,c.width, c.height);
-        
-        //draw object
-        for (indx in garray) {
-            geo = garray[indx];
-        
-            ctx.beginPath();
-            ctx.arc(geo.x, geo.y, geo.r, 0, 2 * Math.PI);
+        <script>
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
 
-            ctx.fillStyle = geo.color;
-            ctx.fill();
-            //ctx.stroke(); 
-            geo.x+=geo.speed;
-
-            //update data
-            if (geo.x-geo.r > c.width) {
-                geo.x = 0-geo.r;
-                geo.y=Math.random()*(c.height - 0) + 0;
+            var geo = {type:"enemy", x:80, y:45, r:10, color:"red", speed:16};
+            var geo2 = {type:"enemy", x:100, y:75, r:20, color:"red", speed:8};
+            var geo3 = {type:"enemy", x:120, y:105, r:40, color:"red", speed:4};
+            var geo4 = {type:"enemy", x:140, y:135, r:80, color:"red", speed:2};
+            var geo5 = {type:"enemy", x:160, y:165, r:160, color:"red", speed:1};
+            var player = {type: "player", x:600, y:300, r:10, color:"blue", speed:2};
+            var gobjects = [geo,geo2,geo3,geo4,geo5,player];
+            
+            //Seconds Counter
+            //var game = {score: 10, state:"play"}
+            var seconds = 0;
+            var el = document.getElementById('seconds-counter');
+            function incrementSeconds() {
+                seconds += 1;
             }
-        }
-        
-        ctx.beginPath();
-        ctx.arc(player.x, player.y, player.r, 0, 2 * Math.PI);
+            var cancel = setInterval(incrementSeconds, 1000);
+            
+            //Draw Objects
+            function draw() {
+                ctx.clearRect(0,0,c.width, c.height);
+                
+                //call drawscore
+                drawScore();
+                
+                //Draw Enemies
+                for (indx in gobjects) {
+                    geo = gobjects[indx];
 
-        ctx.fillStyle = player.color;
-        ctx.fill();
-        //ctx.stroke(); 
-        geo.x+=geo.speed;
+                    ctx.beginPath();
+                    ctx.arc(geo.x, geo.y, geo.r, 0, 2 * Math.PI);
 
-        window.requestAnimationFrame(draw);        
-    }
+                    ctx.fillStyle = geo.color;
+                    ctx.fill();
+                    //ctx.stroke();
+                    if(geo.type != "player"){
+                        geo.x+=geo.speed;
+                    }
     
-    window.requestAnimationFrame(draw);
-    
-    document.onkeydown=doKeyDown;
-        function doKeyDown(evt){
-            switch (evt.keyCode) {
-                case 38:  /* Up arrow was pressed */
-                if (player.y >=16){
-                    player.y -= 25;
+                    //OBJECT COLLISION detection
+                    if (geo.type !="player"){
+                        if(collision(player, geo)){
+                            if(geo.type == "enemy"){
+                                //console.log(game.score)
+                                //alert("GET WREKT!\n You got a HIGH SCORE of: "+seconds);
+                                //document.location.reload();
+                                //clearInterval(interval);
+                                seconds-=1;
+                            }
+                        }
+                    }
+
+                    //update object movement
+                    if (geo.x-geo.r > c.width) {
+                        geo.x = 0-geo.r;
+                        geo.y=Math.random()*(c.height - 0) + 0;
+                    }
                 }
-                break;
-                case 40:  /* Down arrow was pressed */
-                if (player.y <=585){
-                    player.y += 25;
-                }
-                break;
-                case 37:  /* Left arrow was pressed */
-                if (player.x - player.r >-5){
-                    player.x -= 20;
-                }
-                break;
-                case 39:  /* Right arrow was pressed */
-                if (player.x + player.r < c.width){
-                    player.x += 20;
-                }
-                break;
+                
+                //Draw Player
+                ctx.beginPath();
+                ctx.arc(player.x, player.y, player.r, 0, 2 * Math.PI);
+                ctx.fillStyle = player.color;
+                ctx.fill();
+                //ctx.stroke(); 
+                window.requestAnimationFrame(draw);        
             }
-        }
-</script>
-    
-</body>
+            window.requestAnimationFrame(draw);
+            
+            //Prints score to canvas
+            function drawScore() {
+                ctx.font = "16px Arial";
+                ctx.fillStyle = "white";
+                ctx.fillText("Score: "+seconds, 8, 20);
+            }
+            
+            //Collision is Enemy Boolean
+            function collision(item1,item2){
+                var result = false;
+                
+                var dx = item1.x - item2.x;
+                var dy = item1.y - item2.y;
+                var distance = Math.sqrt(dx*dx+dy*dy);
+                if (distance < item1.r + item2.r){
+                    result = true;
+                }
+                return result;
+            }
+
+            document.onkeydown=doKeyDown;
+            function doKeyDown(evt){
+                switch (evt.keyCode) {
+                    case 38:  /* Up arrow was pressed */
+                        if (player.y >=16){
+                            player.y -= 25;
+                        }
+                        break;
+                        case 40:  /* Down arrow was pressed */
+                        if (player.y <=585){
+                            player.y += 25;
+                        }
+                        break;
+                        case 37:  /* Left arrow was pressed */
+                        if (player.x - player.r >-5){
+                            player.x -= 20;
+                        }
+                        break;
+                        case 39:  /* Right arrow was pressed */
+                        if (player.x + player.r < c.width){
+                            player.x += 20;
+                        }
+                        break;
+                    }
+            }
+        </script>
+    </body>
 
 </html>
