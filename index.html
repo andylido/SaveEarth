@@ -12,20 +12,27 @@
         left: 0;
         right: 0;
         }
+        body{
+            background-color: currentColor;
+        }
     </style>
 </head>
 <body>
     
- <canvas id="myCanvas" width="1200" height="600" style="border:1px solid black;">
+ <canvas id="myCanvas" width="1200" height="600" style="border:1px solid white;">
 </canvas>  
 
 <script>
     var c = document.getElementById("myCanvas");
     var ctx = c.getContext("2d");
     
-    var geo = {x:100, y:75, r:10, color:"red", speed:2};
-    var geo2 = {x:100, y:75, r:50, color:"yellow"};
-    var garray = [geo,geo2];
+    var geo = {x:80, y:45, r:10, color:"red", speed:16};
+    var geo2 = {x:100, y:75, r:20, color:"red", speed:8};
+    var geo3 = {x:120, y:105, r:40, color:"red", speed:4};
+    var geo4 = {x:140, y:135, r:80, color:"red", speed:2};
+    var geo5 = {x:160, y:165, r:160, color:"red", speed:1};
+    var player = {x:300, y:15, r:10, color:"blue", speed:2};
+    var garray = [geo,geo2,geo3,geo4,geo5];
     
     function draw() {
         ctx.clearRect(0,0,c.width, c.height);
@@ -33,7 +40,7 @@
         //draw object
         for (indx in garray) {
             geo = garray[indx];
-            
+        
             ctx.beginPath();
             ctx.arc(geo.x, geo.y, geo.r, 0, 2 * Math.PI);
 
@@ -46,14 +53,47 @@
             if (geo.x-geo.r > c.width) {
                 geo.x = 0-geo.r;
                 geo.y=Math.random()*(c.height - 0) + 0;
-            }  
+            }
         }
         
-        //next frame
-        window.requestAnimationFrame(draw);
+        ctx.beginPath();
+        ctx.arc(player.x, player.y, player.r, 0, 2 * Math.PI);
+
+        ctx.fillStyle = player.color;
+        ctx.fill();
+        //ctx.stroke(); 
+        geo.x+=geo.speed;
+
+        window.requestAnimationFrame(draw);        
     }
     
     window.requestAnimationFrame(draw);
+    
+    document.onkeydown=doKeyDown;
+        function doKeyDown(evt){
+            switch (evt.keyCode) {
+                case 38:  /* Up arrow was pressed */
+                if (player.y >=16){
+                    player.y -= 25;
+                }
+                break;
+                case 40:  /* Down arrow was pressed */
+                if (player.y <=585){
+                    player.y += 25;
+                }
+                break;
+                case 37:  /* Left arrow was pressed */
+                if (player.x - player.r >-5){
+                    player.x -= 20;
+                }
+                break;
+                case 39:  /* Right arrow was pressed */
+                if (player.x + player.r < c.width){
+                    player.x += 20;
+                }
+                break;
+            }
+        }
 </script>
     
 </body>
