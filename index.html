@@ -43,24 +43,28 @@
             var c = document.getElementById("myCanvas");
             var ctx = c.getContext("2d");
 
-            var geo1 = {type:"enemy", x:-500, y:200, r:4, color:"red", speed:10, side:1};
-            var geo2 = {type:"enemy", x:-500, y:200, r:9, color:"red", speed:8, side:1};
-            var geo3 = {type:"enemy", x:-500, y:200, r:16, color:"red", speed:6, side:1};
-            var geo4 = {type:"enemy", x:-500, y:200, r:25, color:"red", speed:4, side:1};
-            var geo5 = {type:"enemy", x:-500, y:200, r:36, color:"red", speed:2, side:1};
+            var geo1 = {type:"enemy", x:-100, y:200, r:4, color:"red", speed:10, side:1};
+            var geo2 = {type:"enemy", x:-100, y:200, r:9, color:"red", speed:8, side:1};
+            var geo3 = {type:"enemy", x:-100, y:200, r:16, color:"red", speed:6, side:1};
+            var geo4 = {type:"enemy", x:-100, y:200, r:25, color:"red", speed:4, side:1};
+            var geo5 = {type:"enemy", x:-100, y:200, r:36, color:"red", speed:2, side:1};
             var geo6 = {type:"enemy", x:1300, y:400, r:4, color:"red", speed:10, side:-1};
             var geo7 = {type:"enemy", x:1300, y:400, r:9, color:"red", speed:8, side:-1};
             var geo8 = {type:"enemy", x:1300, y:400, r:16, color:"red", speed:6, side:-1};
             var geo9 = {type:"enemy", x:1300, y:400, r:25, color:"red", speed:4, side:-1};
             var geo10 = {type:"enemy", x:1300, y:400, r:36, color:"red", speed:2, side:-1};
             
-            var geo00 = {type:"enemy", x:600, y:-45, r:25, color:"red", speed:4, side:0};
-            var geo01 = {type:"enemy", x:600, y:-45, r:30, color:"red", speed:3, side:0};
-            var geo02 = {type:"enemy", x:600, y:-45, r:35, color:"red", speed:2, side:0};
-            var geo03 = {type:"enemy", x:600, y:-45, r:40, color:"red", speed:1, side:0};
+            var geo00 = {type:"enemy", x:300, y:-45, r:25, color:"red", speed:4, side:0};
+            var geo01 = {type:"enemy", x:300, y:-45, r:30, color:"red", speed:3, side:0};
+            var geo02 = {type:"enemy", x:300, y:-45, r:35, color:"red", speed:2, side:0};
+            var geo03 = {type:"enemy", x:300, y:-45, r:40, color:"red", speed:1, side:0};      
+            var geo04 = {type:"enemy", x:900, y:645, r:25, color:"red", speed:4, side:3};
+            var geo05 = {type:"enemy", x:900, y:645, r:30, color:"red", speed:3, side:3};
+            var geo06 = {type:"enemy", x:900, y:645, r:35, color:"red", speed:2, side:3};
+            var geo07 = {type:"enemy", x:900, y:645, r:40, color:"red", speed:1, side:3};
             
             var player = {type: "player", x:600, y:300, r:10, color:"blue", speed:2};
-            var gobjects = [geo1,geo2,geo3,geo4,geo5,geo6,geo7,geo8,geo9,geo10,geo00,geo01,geo02,geo03,player];
+            var gobjects = [geo1,geo2,geo3,geo4,geo5,geo6,geo7,geo8,geo9,geo10,geo00,geo01,geo02,geo03,geo04,geo05,geo06,geo07,player];
 
             
             //Seconds Counter
@@ -105,16 +109,16 @@
                     }
 
                     //update object movement
-                    if (geo.side ==1){
-                        if (geo.x-geo.r > c.width) {
-                            geo.x = 0-geo.r;
-                            geo.y = Math.random()*(c.height - 0);
+                    if (seconds>3){
+                        if (geo.side ==1){
+                            if (geo.x-geo.r > c.width) {
+                                geo.x = 0-geo.r;
+                                geo.y = Math.random()*(c.height - 0);
+                            }
+                            if(geo.type != "player"){
+                                geo.x+=geo.side*geo.speed;
+                            }
                         }
-                        if(geo.type != "player"){
-                            geo.x+=geo.side*geo.speed;
-                        }
-                    }
-                    if (seconds>10){
                         if (geo.side ==-1){
                             if (geo.x-geo.r < 0) {
                                 geo.x = 1200+geo.r;
@@ -133,6 +137,17 @@
                             }
                             if(geo.type != "player"){
                                 geo.y+=geo.speed;
+                            }
+                        }
+                    }
+                    if (seconds>20){
+                        if (geo.side ==3){
+                            if (geo.y-geo.r <0) {
+                                geo.x = Math.random()*(c.width - 0);
+                                geo.y = 600+geo.r;
+                            }
+                            if(geo.type != "player"){
+                                geo.y-=geo.speed;
                             }
                         }
                     }
