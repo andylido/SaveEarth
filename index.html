@@ -108,9 +108,13 @@
                         if(collision(player, geo)){
                             if(geo.type == "enemy"){
                                 //console.log(game.score)
-                                if (seconds <35){
+                                if (seconds <15){
                                     alert("Score: "+seconds+"\n\nAwwwwwww...\nYou got WREKT!\nSo sad...\nOpen yo eyes fam...");
-                                } else {
+                                } else if(seconds<35){
+                                    alert("Score: "+seconds+"\n\nNot bad...\nBut you still got WREKT!\nSo sad...\nNoob...");
+                                }
+                                
+                                else{
                                     alert("Score: "+seconds+"\n\nHey! Nice job!\nNormal noobs can't get "+seconds+" here.");
                                 }
                                 document.location.reload();
