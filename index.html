@@ -11,6 +11,9 @@
             bottom: 0;
             left: 0;
             right: 0;
+            background-image: url("space.jpg");
+            background-repeat: no-repeat;
+            background-size: 100%;
             background-color: currentColor;
         }
         body{
@@ -29,13 +32,19 @@
             color: skyblue;
             font: Arial;
         }
+        #earth{
+            display: none;
+        }
     </style>
     <title>IT202 - Project 3</title>
 </head>
     <body>
-        <h1>Can't Touch This</h1>
-        <h2>Directions: Use arrow keys to dodge for yo life.</h2><br>
-
+        <h1>SpaceZ</h1>
+        <h2>Directions: Use arrow keys to steer Earth out of extinction.</h2><br>
+        
+        <img id="earth" width="30" height="30" src="earth.png" alt="Earth">
+        <img id="rock" width="30" height="30" src="rock.png" alt="Earth">
+        <img id="bubble" width="30" height="30" src="bubble.png" alt="Earth">
         <canvas id="myCanvas" width="1200" height="600" style="border:1px solid white;">
         </canvas>  
 
@@ -43,36 +52,41 @@
             var c = document.getElementById("myCanvas");
             var ctx = c.getContext("2d");
 
-            var geo1 = {type:"enemy", x:-100, y:200, r:4, color:"red", speed:10, side:1};
-            var geo2 = {type:"enemy", x:-100, y:200, r:9, color:"red", speed:8, side:1};
-            var geo3 = {type:"enemy", x:-100, y:200, r:16, color:"red", speed:6, side:1};
-            var geo4 = {type:"enemy", x:-100, y:200, r:25, color:"red", speed:4, side:1};
-            var geo5 = {type:"enemy", x:-100, y:200, r:36, color:"red", speed:2, side:1};
-            var geo6 = {type:"enemy", x:1300, y:400, r:4, color:"red", speed:10, side:-1};
-            var geo7 = {type:"enemy", x:1300, y:400, r:9, color:"red", speed:8, side:-1};
-            var geo8 = {type:"enemy", x:1300, y:400, r:16, color:"red", speed:6, side:-1};
-            var geo9 = {type:"enemy", x:1300, y:400, r:25, color:"red", speed:4, side:-1};
-            var geo10 = {type:"enemy", x:1300, y:400, r:36, color:"red", speed:2, side:-1};
+            var geo1 = {type:"enemy", x:-100, y:200, r:10, color:"red", speed:10, side:1};
+            var geo2 = {type:"enemy", x:-100, y:200, r:11, color:"red", speed:8, side:1};
+            var geo3 = {type:"enemy", x:-100, y:200, r:12, color:"red", speed:6, side:1};
+            var geo4 = {type:"enemy", x:-100, y:200, r:13, color:"red", speed:4, side:1};
+            var geo5 = {type:"enemy", x:-100, y:200, r:14, color:"red", speed:2, side:1};
+            var geo6 = {type:"enemy", x:1300, y:400, r:10, color:"red", speed:10, side:-1};
+            var geo7 = {type:"enemy", x:1300, y:400, r:11, color:"red", speed:8, side:-1};
+            var geo8 = {type:"enemy", x:1300, y:400, r:12, color:"red", speed:6, side:-1};
+            var geo9 = {type:"enemy", x:1300, y:400, r:13, color:"red", speed:4, side:-1};
+            var geo10 = {type:"enemy", x:1300, y:400, r:14, color:"red", speed:2, side:-1};
             
-            var geo00 = {type:"enemy", x:400, y:-45, r:25, color:"red", speed:4, side:0};
-            var geo01 = {type:"enemy", x:400, y:-45, r:30, color:"red", speed:3, side:0};
-            var geo02 = {type:"enemy", x:400, y:-45, r:35, color:"red", speed:2, side:0};
-            var geo03 = {type:"enemy", x:400, y:-45, r:40, color:"red", speed:1, side:0};      
-            var geo04 = {type:"enemy", x:800, y:645, r:25, color:"red", speed:4, side:3};
-            var geo05 = {type:"enemy", x:800, y:645, r:30, color:"red", speed:3, side:3};
-            var geo06 = {type:"enemy", x:800, y:645, r:35, color:"red", speed:2, side:3};
-            var geo07 = {type:"enemy", x:800, y:645, r:40, color:"red", speed:1, side:3};
+            var geo00 = {type:"enemy", x:400, y:-45, r:20, color:"red", speed:4, side:0};
+            var geo01 = {type:"enemy", x:400, y:-45, r:25, color:"red", speed:3, side:0};
+            var geo02 = {type:"enemy", x:400, y:-45, r:30, color:"red", speed:2, side:0};
+            var geo03 = {type:"enemy", x:400, y:-45, r:45, color:"red", speed:1, side:0};      
+            var geo04 = {type:"enemy", x:800, y:645, r:20, color:"red", speed:4, side:3};
+            var geo05 = {type:"enemy", x:800, y:645, r:25, color:"red", speed:3, side:3};
+            var geo06 = {type:"enemy", x:800, y:645, r:30, color:"red", speed:2, side:3};
+            var geo07 = {type:"enemy", x:800, y:645, r:35, color:"red", speed:1, side:3};
             
             var geo000 = {type:"enemy", x:1100, y:-45, r:20, color:"red", speed:1, side:4};
             var geo010 = {type:"enemy", x:1100, y:-45, r:15, color:"red", speed:2, side:4};
-            var geo020 = {type:"enemy", x:1100, y:-45, r:10, color:"red", speed:3, side:4};
-            var geo030 = {type:"enemy", x:1100, y:-45, r:5, color:"red", speed:4, side:4};      
+            var geo020 = {type:"enemy", x:1100, y:-45, r:13, color:"red", speed:3, side:4};
+            var geo030 = {type:"enemy", x:1100, y:-45, r:11, color:"red", speed:4, side:4};      
             var geo040 = {type:"enemy", x:100, y:645, r:20, color:"red", speed:1, side:5};
             var geo050 = {type:"enemy", x:100, y:645, r:15, color:"red", speed:2, side:5};
-            var geo060 = {type:"enemy", x:100, y:645, r:10, color:"red", speed:3, side:5};
-            var geo070 = {type:"enemy", x:100, y:645, r:5, color:"red", speed:4, side:5};
+            var geo060 = {type:"enemy", x:100, y:645, r:13, color:"red", speed:3, side:5};
+            var geo070 = {type:"enemy", x:100, y:645, r:11, color:"red", speed:4, side:5};
             
-            var player = {type: "player", x:600, y:300, r:10, color:"skyblue", speed:2};
+            var player = {type: "player", x:600, y:300, r:10, color:"skyblue", speed:2, img: 'earth.png'};
+            
+            var img = document.getElementById("earth");
+            var rock = document.getElementById("rock");
+            
+            //All global objects housed in array
             var gobjects = [geo1,geo2,geo3,geo4,geo5,geo6,geo7,geo8,geo9,geo10,geo00,geo01,geo02,geo03,geo04,geo05,geo06,geo07,geo000,geo010,geo020,geo030,geo040, geo050,geo060,geo070,player];
 
             
@@ -89,24 +103,35 @@
             function draw() {
                 ctx.clearRect(0,0,c.width, c.height);
                 
-                //call drawscore
+                //call drawScore() to draw score to canvas
                 drawScore();
                 
-                //Draw Enemies
+                //Draw Objects
                 for (indx in gobjects) {
                     geo = gobjects[indx];
-
-                    ctx.beginPath();
-                    ctx.arc(geo.x, geo.y, geo.r, 0, 2 * Math.PI);
-
-                    ctx.fillStyle = geo.color;
-                    ctx.fill();
-                    ctx.stroke();
+                    
+                    //Draw Player and Enemies
+                    if (geo.type == "player"){
+                        ctx.beginPath();
+                        ctx.drawImage(img, player.x-19.5, player.y-20, player.r+30, player.r+30);
+                        ctx.arc(player.x, player.y, player.r, 0, 2 * Math.PI);
+                        //ctx.fillStyle = "green";
+                        //ctx.fill(); 
+                        //ctx.stroke();
+                    } else{
+                        ctx.beginPath();
+                        ctx.drawImage(rock, geo.x-geo.r*2.25, geo.y-geo.r*2.25, geo.r*4.6, geo.r*4.6);
+                        ctx.arc(geo.x, geo.y, geo.r, 0, 2 * Math.PI);
+                        //ctx.fillStyle = "brown";
+                        //ctx.fill();
+                        //ctx.stroke();
+                    }
     
                     //OBJECT COLLISION detection
                     if (geo.type !="player"){
                         if(collision(player, geo)){
                             if(geo.type == "enemy"){
+                                ctx.clearRect(0,0,c.width, c.height);
                                 //console.log(game.score)
                                 if (seconds <15){
                                     alert("Score: "+seconds+"\n\nAwwwwwww...\nYou got WREKT!\nSo sad...\nOpen yo eyes fam...");
@@ -119,14 +144,13 @@
                                 }
                                 document.location.reload();
                                 clearInterval(interval);
-                                
                                 //seconds-=1;
                             }
                         }
                     }
 
                     //update object movement
-                    if (seconds>7){
+                    if (seconds>5){
                         if (geo.side ==1){
                             if (geo.x-geo.r > c.width) {
                                 geo.x = 0-geo.r;
@@ -189,13 +213,7 @@
                         }
                     }
                 }
-                
-                //Draw Player
-                ctx.beginPath();
-                ctx.arc(player.x, player.y, player.r, 0, 2 * Math.PI);
-                ctx.fillStyle = player.color;
-                ctx.fill();
-                //ctx.stroke(); 
+
                 window.requestAnimationFrame(draw);        
             }
             
