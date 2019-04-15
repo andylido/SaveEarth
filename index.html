@@ -122,6 +122,9 @@
                     if (geo.type == "player"){
                         ctx.beginPath();
                         ctx.drawImage(img, player.x-19.5, player.y-20, player.r+30, player.r+30);
+                        if (lives>0){
+                            ctx.drawImage(bubble, player.x-19.5, player.y-20, player.r+30, player.r+30);
+                        }
                         ctx.arc(player.x, player.y, player.r, 0, 2 * Math.PI);
                     } else if (geo.type == "enemy"){
                         ctx.beginPath();
@@ -141,17 +144,21 @@
                                     ctx.clearRect(0,0,c.width, c.height);
                                     //console.log(game.score)
                                     if (seconds <15){
-                                        alert("Score: "+seconds+"\n\nAwwwwwww...\nYou got WREKT!\nSo sad...\nOpen yo eyes fam...");
+                                        alert("EXTINCTION\n\nLevel: "+level+"\nScore: "+seconds+"\n\nAwwwwwww...\nEarth is no more!\nSo sad...\nI guess we can move to Mars...");
                                     } else if(seconds<35){
-                                        alert("Score: "+seconds+"\n\nNot bad...\nBut you still got WREKT!\nSo sad...\nNoob...");
+                                        alert("EXTINCTION\n\nLevel: "+level+"\nScore: "+seconds+"\n\nGood job Capitan!\n But Earth is still gone...\n");
                                     }
 
                                     else{
-                                        alert("Score: "+seconds+"\n\nHey! Nice job!\nNormal noobs can't get "+seconds+" here.");
+                                        alert("EXTINCTION\n\nLevel: "+level+"\nScore: "+seconds+"\n\nYou're a figther...\nEarth is proud to have had you!\n");
                                     }
                                     document.location.reload();
                                     clearInterval(interval);
                                     //seconds-=1;
+                                }else{
+                                    geo.x=-100;
+                                    geo.y=-100;
+                                    lives-=1;
                                 }
                             } else if(geo.type == "benefit"){
                                 geo.x=-100;
@@ -175,7 +182,7 @@
                         }else if(seconds==70){
                             level="Masters";
                             extraspeed=5;
-                        }else if(level>80){
+                        }else if(seconds>80){
                             level="Champion";
                             extraspeed=6;
                         }
@@ -253,19 +260,19 @@
             function drawScore() {
                 ctx.font = "18px Arial";
                 ctx.fillStyle = "white";
-                ctx.fillText("Score: "+seconds, 8, 21);
+                ctx.fillText("Score: "+seconds, 10, 25);
             }   
             
             function drawlives() {
-                ctx.font = "18px Arial";
+                ctx.font = "20px Arial";
                 ctx.fillStyle = "white";
-                ctx.fillText("Atmospheres: "+lives, 100, 21);
+                ctx.fillText("Atmospheres: "+lives, 550, 25);
             }
             
             function drawlevel() {
                 ctx.font = "18px Arial";
                 ctx.fillStyle = "white";
-                ctx.fillText("Level: "+level, 260, 21);
+                ctx.fillText("Level: "+level, 1070, 25);
             }
             
             //Keypress eventhandler
