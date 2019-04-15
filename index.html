@@ -11,6 +11,8 @@
             bottom: 0;
             left: 0;
             right: 0;
+            width: 70%;
+            height: 70%;
             background-image: url("space.jpg");
             background-repeat: no-repeat;
             background-size: 100%;
@@ -39,8 +41,9 @@
     <title>IT202 - Project 3</title>
 </head>
     <body>
-        <h1>SpaceZ</h1>
+        <h1>Space Dash</h1>
         <h2>Directions: Use arrow keys to steer Earth out of extinction.</h2><br>
+        <h2></h2>
         
         <img id="earth" width="30" height="30" src="earth.png" alt="Earth">
         <img id="rock" width="30" height="30" src="rock.png" alt="Earth">
@@ -81,7 +84,7 @@
             var geo060 = {type:"enemy", x:100, y:645, r:13, color:"red", speed:3, side:5};
             var geo070 = {type:"enemy", x:100, y:645, r:11, color:"red", speed:4, side:5};
             
-            var shield = {type:"benefit", x:-100, y:-645, r:11, color:"red", speed:4, side:5};
+            var shield = {type:"benefit", x:-100, y:-645, r:11, color:"red", speed:1, side:5};
             
             var player = {type: "player", x:600, y:300, r:10, color:"skyblue", speed:2, img: 'earth.png'};
             
@@ -143,10 +146,10 @@
                                 if(lives==0){
                                     ctx.clearRect(0,0,c.width, c.height);
                                     //console.log(game.score)
-                                    if (seconds <15){
+                                    if (seconds <20){
                                         alert("EXTINCTION\n\nLevel: "+level+"\nScore: "+seconds+"\n\nAwwwwwww...\nEarth is no more!\nSo sad...\nI guess we can move to Mars...");
                                     } else if(seconds<35){
-                                        alert("EXTINCTION\n\nLevel: "+level+"\nScore: "+seconds+"\n\nGood job Capitan!\n But Earth is still gone...\n");
+                                        alert("EXTINCTION\n\nLevel: "+level+"\nScore: "+seconds+"\n\nGood job, Capitan!\nBut Earth is still gone...\n");
                                     }
 
                                     else{
@@ -189,7 +192,7 @@
                     }
 
                     //update object movement
-                    if (seconds>4){
+                    if (seconds>6){
                         if (geo.side ==1){
                             if (geo.x-geo.r > c.width) {
                                 geo.x = 0-geo.r;
@@ -266,7 +269,7 @@
             function drawlives() {
                 ctx.font = "20px Arial";
                 ctx.fillStyle = "white";
-                ctx.fillText("Atmospheres: "+lives, 550, 25);
+                ctx.fillText("Atmospheres: "+lives, 540, 25);
             }
             
             function drawlevel() {
@@ -275,7 +278,7 @@
                 ctx.fillText("Level: "+level, 1070, 25);
             }
             
-            //Keypress eventhandler
+            //Keypress event handler
             document.onkeydown=doKeyDown;
             function doKeyDown(evt){
                 switch (evt.keyCode) {
