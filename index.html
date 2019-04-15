@@ -84,7 +84,7 @@
             var geo060 = {type:"enemy", x:100, y:645, r:13, color:"red", speed:3, side:5};
             var geo070 = {type:"enemy", x:100, y:645, r:11, color:"red", speed:4, side:5};
             
-            var shield = {type:"benefit", x:-100, y:-645, r:11, color:"red", speed:1, side:5};
+            var shield = {type:"benefit", x:-100, y:-645, r:11, color:"red", speed:0.5, side:5};
             
             var player = {type: "player", x:600, y:300, r:10, color:"skyblue", speed:2, img: 'earth.png'};
             
@@ -175,19 +175,19 @@
                             extraspeed=1;
                         }else if(seconds==20){
                             level=3;
-                            extraspeed=2;
+                            extraspeed=1.5;
                         }else if(seconds==30){
                             level=4;
-                            extraspeed=3;
+                            extraspeed=2;
                         }else if(seconds==50){
                             level=5;
-                            extraspeed=4;
+                            extraspeed=2.5;
                         }else if(seconds==70){
                             level="Masters";
-                            extraspeed=5;
+                            extraspeed=3;
                         }else if(seconds>80){
                             level="Champion";
-                            extraspeed=6;
+                            extraspeed=3.5;
                         }
                     }
 
@@ -284,22 +284,22 @@
                 switch (evt.keyCode) {
                     case 38:  /* Up arrow was pressed */
                         if (player.y >=16){
-                            player.y -= 20;
+                            player.y -= 23;
                         }
                         break;
                         case 40:  /* Down arrow was pressed */
                         if (player.y <=585){
-                            player.y += 20;
+                            player.y += 23;
                         }
                         break;
                         case 37:  /* Left arrow was pressed */
                         if (player.x - player.r >-5){
-                            player.x -= 20;
+                            player.x -= 25;
                         }
                         break;
                         case 39:  /* Right arrow was pressed */
                         if (player.x + player.r < c.width){
-                            player.x += 20;
+                            player.x += 25;
                         }
                         break;
                     }
